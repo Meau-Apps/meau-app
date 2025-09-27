@@ -3,7 +3,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
-import Navigation from './src/navigation';
+import { AuthProvider } from './src/contexts/AuthContext';
+import Navigation from './src/navigation/navigation';
+
+/**
+  Registra e starta os listeners do Mitt
+  @see https://www.npmjs.com/package/mitt
+  */
+import './src/core/listeners';
 
 enableScreens();
 
@@ -26,8 +33,10 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <Navigation />
-    </SafeAreaProvider>
+    <AuthProvider>
+      <SafeAreaProvider>
+        <Navigation />
+      </SafeAreaProvider>
+    </AuthProvider>
   );
 }
